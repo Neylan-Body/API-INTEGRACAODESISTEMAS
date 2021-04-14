@@ -1,10 +1,12 @@
 // importar dependencia
 const express = require('express');
 const path = require('path');
-const pages = require('./pages.js');
+const cors = require('cors');
 // iniciando o express
-const server = express();
-server
+
+app = express();
+app.use(cors())
+app
     // ultilizar body do req
     .use(express.urlencoded({extended: true}))
     // ultilizando os arquivos estaticos
@@ -13,14 +15,9 @@ server
     .set('views', path.join(__dirname, "views"))
     .set('view engine', 'hbs')
     // rotas da aplicação
-    .get('/', pages.index)
-    .get('/orphanage', pages.orphanage)
-    .get('/orphanages', pages.orphanages)
-    .post('/orphanages', pages.users)
-    .get('/create-orphanage', pages.createOrphanage)
-    .get('/login', pages.login)
-    .get('/forgot-password', pages.forgotPassword)
-    .post('/save-orphanage', pages.saveOrphanage)
-    .post('/save-user', pages.saveUser)
+    .get('/', function (req, res) {
+        return res.render('index')
+    })
 // ligar o servidor
-server.listen(5500);
+app.listen(5500);
+
