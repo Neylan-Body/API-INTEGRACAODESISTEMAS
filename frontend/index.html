@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <p id="demo">Clique no botão para receber sua localização em Latitude e Longitude:</p>
-        <button onclick="getLocationHour()">Clique Aqui</button>
         <script>
+        $(function() {
+            $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+                function(json) {
+                $.ajax({
+                    url: "",
+                    context: document.body
+                    }).done(function() {
+                        $( this ).addClass( "done" );
+                });
+            });
+        });
         var x=document.getElementById("demo");
         function getLocationHour(){
             if (navigator.geolocation){
