@@ -12,7 +12,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.post('/', urlencodedParser, async (req, res) => {
     const {ip} = req.body   
     const response = await axios('http://ip-api.com/json/'+ip)
-    res.json(response.data);
+    res.send(response.data);
 })
 
 app.listen(port, () => {
