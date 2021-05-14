@@ -6,13 +6,12 @@ const app = express()
 app.use(cors())
 const port = 3000
 
-var jsonParser = bodyParser.json()
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-app.post('/', urlencodedParser, async (req, res) => {
-    const {ip} = req.body   
-    const response = await axios('http://ip-api.com/json/'+ip)
-    res.send(response.data);
+app.post('/', async (req, res) => {
+    console.log(req.body)
+    //const {latitude, longitude} = req.body
+    var data = new Date();
+    var hora = data.getHours()+":"+ data.getMinutes()+":"+ data.getSeconds();    
+    // res.json({ latitude, longitude, data, hora });
 })
 
 app.listen(port, () => {

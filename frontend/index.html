@@ -6,38 +6,38 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     </head>
     <body>
+        <p id="demo">Clique no botão para receber sua localização em Latitude e Longitude:</p>
+        <button onclick="pegarLatLng()">Clique Aqui</button>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            $.ajax({
-                method: "GET",
-                url: "https://api.ipify.org?format=jsonp&callback=?",
-                success: function (data){
-                    const ip = data.toString().substring(9, 23)
-                    $.ajax({
-                        method: "POST",
-                        crossDomain: true,
-                        url: "https://3000-black-vulture-ewzd4gd9.ws-us03.gitpod.io/",
-                        data: {
-                            "ip":ip
-                        },                
-                        success: function (data) {
-                            const dataAtual = new Date();
-                            const hora = ((dataAtual.getHours() < 10) ? 0+""+dataAtual.getHours() : dataAtual.getHours())
-                            +":"+((dataAtual.getMinutes() < 10) ? 0+""+dataAtual.getMinutes() : dataAtual.getMinutes())
-                            +":"+((dataAtual.getSeconds() < 10) ? 0+""+dataAtual.getSeconds() : dataAtual.getSeconds())
-                            const {lat, lon} = data;
-                            const dados = {};
-                            dados.latitude = lat;
-                            dados.longitude = lon;
-                            dados.hora = hora;
-                            console.log(JSON.stringify(dados));
-                        },
-                        error: function (xhr, status) {
-                            console.log("erro")
-                        }
-                    })
+            var x=document.getElementById("demo");
+            function pegarLatLng(){
+                if (navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(enviarPraBackend);
                 }
-            })
+                else{
+                    x.innerHTML="O seu navegador não suporta Geolocalização.";
+                }
+            }
+            function enviarPraBackend(position){
+                var latitude = position.coords.latitude
+                var longitude = position.coords.longitude;
+                $.ajax({
+                    method: "POST",
+                    crossDomain: true,
+                    url: "https://3000-beige-guanaco-c7mznwtx.ws-us04.gitpod.io/",
+                    data: {
+                        latitude:latitude,
+                        longitude:longitude,
+                    },                
+                    success: function (data) {
+                        console.log(data.latitude,data.longitude);
+                    },
+                    error: function (xhr, status) {
+                        console.log("erro")
+                    }
+                })
+            }
         </script>
     </body>
 </html>
