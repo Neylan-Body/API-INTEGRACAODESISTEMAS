@@ -40,6 +40,8 @@ app.post('/', async (req, res) => {
         }
     }
     var horario = horas+":"+minutos+":"+segundos;
+    console.log(latitude, longitude);
+    
     res.json({latitude, longitude, horario});
 })
 
