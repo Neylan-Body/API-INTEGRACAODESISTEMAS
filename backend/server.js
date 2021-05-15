@@ -25,8 +25,21 @@ app.post('/', async (req, res) => {
     if(horas<10){
         horas = "0"+data.getHours()
     }
+    if(horas == "00"){
+        horas = "21";
+    }
+    else if(horas == "01"){
+        horas = "22";
+    }
+    else if(horas == "02"){
+        horas = "23";
+    }else{
+        horas = (parseInt(horas, 10))-3
+        if(horas<10){
+            horas = "0"+horas
+        }
+    }
     var horario = horas+":"+minutos+":"+segundos;
-    console.log(horario);
     res.json({latitude, longitude, horario});
 })
 
