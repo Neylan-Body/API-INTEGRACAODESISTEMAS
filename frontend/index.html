@@ -31,7 +31,10 @@
                         longitude:longitude,
                     },                
                     success: function (data) {
-                        console.log(data.latitude,data.longitude);
+                        console.log(JSON.stringify(data));
+                        x.innerHTML= "Latitude: "+data.latitude
+                        +"\nLongitude: "+data.longitude
+                        +"\nHora: "+data.hora;
                     },
                     error: function (xhr, status) {
                         console.log("erro")
